@@ -1,18 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
+from .serializers import UserSerializer, MenuItemSerializer
 
 # Create your models here.
 
-
-
-
-
-class Booking(models.Model):
-    name = models.CharField(max_length=255)
-    no_of_guests = models.IntegerField()
-    bookingdate = models.DateTimeField(auto_now=True)
+class User(models.Model):
+    username = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    groups = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.name
+        return self.user
 
 class Menu(models.Model):
     title = models.CharField(max_length=255)
@@ -21,3 +19,12 @@ class Menu(models.Model):
 
     def __str__(self):
         return self.title
+    
+    
+class Booking(models.Model):
+    name = models.CharField(max_length=255)
+    no_of_guests = models.IntegerField()
+    booking_date = models.DateTimeField(auto_now_add=False,null =True)
+    
+    def __str__(self):
+        return self.name
