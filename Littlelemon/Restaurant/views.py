@@ -1,37 +1,38 @@
-from rest_framework.decorators import api_view, permission_classes
+# views.py
+from django.contrib.auth.models import User
+from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
-from .models import MenuItem
-from rest_framework import response
-from rest_framework import generics, viewsets, permissions
-from .serializers import MenuItemSerializer, SingleMenuItemSerializer, UserSerializer
+
+from restaurant.models import Menu, Booking
+from restaurant.serializers import MenuSerializer, BookingSerializer, UserSerializer
 
 
+class MenuList(generics.ListCreateAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
 
-# Create your views here.
+
+class BookingList(generics.ListCreateAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
 
 
-@api_view ()
-@permission_classes([IsAuthenticated])
-#@authentication_classes([TokenAuthentication])
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-def msg(request):
-    return Response({"message":"This view is protected"})
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
-
-class MenuItemView(generics.ListCreateAPIView):
-    queryset = MenuItem.objects.all()
-    serializer_class = MenuItemSerializer
-
-class SingleMenuItemView(generics.RetrieveUpdateAPIView,generics.DestroyAPIView):
-    queryset = MenuItem.objects.all()
-    serializer_class = MenuItemSerializer
-    
+class MenuViewSet(viewsets.ModelViewSet):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
 
 
-
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [IsAuthenticated]

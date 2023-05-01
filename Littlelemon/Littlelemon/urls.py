@@ -14,31 +14,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.urls import include, path
+from rest_framework import routers
+from restaurant.views import BookingList, UserList, MenuList, UserViewSet
 
-from django.contrib import User
-from django.urls import path, include
-from rest_framework import routers, serializers, viewsets
-
-class UserViewset(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-class MenuViewset(viewsets.ModelViewSet):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
-
-class BookingViewset(viewsets.ModelViewSet):
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
-
-
-
-
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
 
 urlpatterns = [
- path('admin/', admin.site.urls),
- path('api/,inclued(LittlelemonAPI.urls')),
- path('restaurant/', include('restaurant.urls'))
- path('restaurant/menu/', include('restaurant.urls'))
- path('restarant/booking/', include('restaurant.urls'))
+    path('bookings/', BookingList.as_view(), name='booking-list'),
+    path('menu/', MenuList.as_view(), name='menu-list'),
+    path('users/', UserList.as_view(), name='user-list'),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('', include(router.urls)),
 ]
+
