@@ -15,12 +15,30 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
+from django.contrib import User
 from django.urls import path, include
+from rest_framework import routers, serializers, viewsets
+
+class UserViewset(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class MenuViewset(viewsets.ModelViewSet):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
+class BookingViewset(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+
+
+
 
 
 urlpatterns = [
  path('admin/', admin.site.urls),
+ path('api/,inclued(LittlelemonAPI.urls')),
  path('restaurant/', include('restaurant.urls'))
  path('restaurant/menu/', include('restaurant.urls'))
+ path('restarant/booking/', include('restaurant.urls'))
 ]
