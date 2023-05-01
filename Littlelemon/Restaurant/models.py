@@ -5,6 +5,7 @@ from .serializers import UserSerializer, MenuItemSerializer
 # Create your models here.
 
 class User(models.Model):
+    url = models.URLField (max_length=200)
     username = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     groups = models.CharField(max_length=255)
@@ -12,13 +13,13 @@ class User(models.Model):
     def __str__(self):
         return self.user
 
-class Menu(models.Model):
+class MenuItem(models.Model):
     title = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places =2)
     Inventory = models.IntegerField()
 
     def __str__(self):
-        return self.title
+        return f'{self.title} : {self.price}'
     
     
 class Booking(models.Model):
