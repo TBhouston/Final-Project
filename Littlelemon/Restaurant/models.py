@@ -4,6 +4,7 @@
 # Create your models here.
 
 from django.db import models
+import datetime
 
 class Menu(models.Model):
     name = models.CharField(max_length=255)
@@ -18,7 +19,7 @@ class Menu(models.Model):
 class Booking(models.Model):
     name = models.CharField(max_length=255)
     no_of_guests = models.IntegerField()
-    booking_date = models.DateTimeField(auto_now_add=True)
+    booking_date = models.DateTimeField(auto_now=False,null=True)
 
     def __str__(self):
         return f'{self.name} - {self.no_of_guests} guests'
