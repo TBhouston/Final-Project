@@ -23,7 +23,7 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
-    path ('', include('restaurant.urls')),
+    path('', include('restaurant.urls')),
     path('bookings/', BookingList.as_view(), name='booking-list'),
     path('menu/', MenuList.as_view(), name='menu-list'),
     path('users/', UserList.as_view(), name='user-list'),
@@ -32,6 +32,7 @@ urlpatterns = [
     path('api/', include('rest_framework.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_frameworkV1'))
 
 ]
 

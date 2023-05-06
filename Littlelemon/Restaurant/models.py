@@ -6,6 +6,15 @@
 from django.db import models
 import datetime
 
+class User(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    password = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f'{self.name} - {self.email}'
+
+
 class Menu(models.Model):
     name = models.CharField(max_length=255, default="product name")
     description = models.TextField(default="product description")
@@ -14,6 +23,9 @@ class Menu(models.Model):
 
     def __str__(self):
         return f'{self.name} - {self.price}'
+    
+
+
     
 class Booking(models.Model):
     name = models.CharField(max_length=255)

@@ -1,6 +1,7 @@
 # views.py
 from django.contrib.auth.models import User
 from rest_framework import generics, viewsets
+from rest_framework.authtoken.views import renderers
 from rest_framework.permissions import IsAuthenticated
 
 from restaurant.models import Menu, Booking
@@ -28,6 +29,10 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class MenuViewSet(viewsets.ModelViewSet):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
+class SingleMenuItems(generics.RetrieveUpdateDestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
