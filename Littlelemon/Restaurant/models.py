@@ -7,14 +7,13 @@ from django.db import models
 import datetime
 
 class Menu(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
+    name = models.CharField(max_length=255, default="product name")
+    description = models.TextField(default="product description")
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    
 
     def __str__(self):
-        return self.name
+        return f'{self.name} - {self.price}'
     
 class Booking(models.Model):
     name = models.CharField(max_length=255)
