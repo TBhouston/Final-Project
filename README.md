@@ -1,4 +1,4 @@
 # Final-Project
 Test
- /api/bookings/
- /api/registration/
+/restaurant/menu/
+/auth/users/
